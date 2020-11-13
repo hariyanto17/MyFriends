@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { Button, Gap } from "../../components";
 import { ILGetStarted } from "../../assets";
 
-const GetStarted = () => {
+const GetStarted = ({navigation}) => {
     return (
         <View style={styles.wrapper}>
         <View style={styles.textWrapper} >
@@ -12,7 +12,7 @@ const GetStarted = () => {
         <Gap height={42} />
         <ILGetStarted/>
         <Gap height={52} />
-        <Button title="Get Started"/>
+        <Button title="Get Started" onPress={()=> navigation.navigate('OnBoard')} />
       </View>
     )
 }
@@ -36,5 +36,5 @@ const styles = StyleSheet.create({
       fontSize: 32,
       lineHeight : 40,
       textAlign : "center",
-    }
+    },
   })

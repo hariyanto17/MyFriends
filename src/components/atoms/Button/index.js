@@ -2,9 +2,9 @@ import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 
-const Button = ({type, title}) => {
+const Button = ({title, onPress}) => {
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <Text style={styles.text}>{title}</Text>
         </TouchableOpacity>
     )
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#6C63FF',
         paddingVertical: 10,
         borderRadius: 8,
-        paddingHorizontal: 95
+        width : 291
     },
     text : {
         fontSize : 18,
