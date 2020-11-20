@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Button, Gap } from "../../components";
 import { ILGetStarted } from "../../assets";
+import { getData } from '../../utils';
+import { useDispatch } from 'react-redux';
 
 const GetStarted = ({navigation}) => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    getData('user').then(res => {
+      if (res) {
+        dispatch({ type: 'SET_USER', value : res })
+        console.log('res', res)
+        navigation.replace('Dasboard')
+      }
+    })
+  }, [])
     return (
         <View style={styles.wrapper}>
         <View style={styles.textWrapper} >
@@ -12,7 +24,7 @@ const GetStarted = ({navigation}) => {
         <Gap height={42} />
         <ILGetStarted/>
         <Gap height={52} />
-        <Button title="Get Started" onPress={()=> navigation.navigate('OnBoard')} />
+        <Button title="Get Started" onPress={()=> navigation.replace('OnBoard')} />
       </View>
     )
 }

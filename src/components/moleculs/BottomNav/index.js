@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { ICAddFriend, ICClose, ICContact, ICHome, ICUserEdit } from '../../../assets'
 
-const BottomNav = ({left, right}) => {
+const BottomNav = ({left, right, leftOnPress, rightOnPress}) => {
     const LeftIcon = () => {
         if (left === "edit"){
             return <ICUserEdit/>
@@ -20,10 +20,10 @@ const BottomNav = ({left, right}) => {
     }
     return (
         <View style={styles.wrapper}>
-            <TouchableOpacity style={styles.iconWrapper}>
+            <TouchableOpacity style={styles.iconWrapper} onPress={leftOnPress}>
                 <LeftIcon/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.iconWrapper}>
+            <TouchableOpacity style={styles.iconWrapper} onPress={rightOnPress}>
                 <RightIcon/>
             </TouchableOpacity>
         </View>
@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
         flexDirection : "row",
         height : 75,
         width : 291,
-        backgroundColor : "#FFF",
         borderWidth : 1,
         borderColor : "#E5E5E5",
         borderRadius : 75, 

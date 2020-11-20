@@ -1,18 +1,53 @@
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 import { BottomNav, FriendsList, Header } from '../../components'
+import { Fire } from '../../config'
+import { getData } from '../../utils'
 
-const FriendList = () => {
+const FriendList = ({navigation}) => {
+
+    const [friendList, setFriendList] = useState([]);
+    useEffect(() => {
+        getData('user').then(res=>{
+            Fire.database()
+                .ref(`/myFriends/${res.id}`)
+                .on('value', snapshot => {
+                    if (snapshot.val()) {
+                        const data = [];
+                        Object.keys(snapshot.val()).map(key =>{
+                            data.push({
+                                id : key,
+                                data : snapshot.val()[key]
+                            })
+                        })
+                        setFriendList(data)
+                    }
+            })
+        })
+    }, [])
+
     return (
         <View style={styles.wrapper} >
             <View>
-                <Header title="Frind List"/>
-                <FriendsList/>
-                <FriendsList/>
-                <FriendsList/>
+                <Header title="Frind List" onPress={()=> navigation.navigate('Dasboard')}/>
+                {
+                    friendList.length > 0 
+                    ? friendList.map(list => {
+                        return <FriendsList 
+                         key={list.id}
+                         list={list}
+                         onPress={()=> navigation.navigate('DetailFriend', list)}
+                         />
+                    })
+                    : null
+                }
             </View>
             <View style={styles.bottomNav} >
-                <BottomNav right="home"/> 
+                <BottomNav
+                 right="home"
+                 leftOnPress={()=> navigation.navigate('AddFriend')}
+                 rightOnPress={()=> navigation.navigate('Dasboard')}
+                /> 
             </View>
         </View>
     )

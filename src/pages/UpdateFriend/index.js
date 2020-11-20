@@ -1,27 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, Image, TouchableOpacity, View } from 'react-native'
-import { Button, Gap, Header, Input, MyPhoto } from '../../components'
+import React, { useState } from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import ImagePicker from 'react-native-image-picker'
-import { Default } from '../../assets'
-import { Fire } from '../../config'
-import { getData, useForm } from '../../utils'
+import { useSelector } from 'react-redux';
+import { Button, Gap, Header, Input } from '../../components'
+import { Fire } from '../../config';
+import { useForm } from '../../utils';
 
-const EditProfile = ({navigation}) => {
+const UpdateFriends = ({navigation, route}) => {
+    const data = route.params;
 
-    const [myId, setMyId] = useState('')
-    const [photoForDB, setPhotoForDB] = useState('');
-    const [photo, setPhoto] = useState(Default);
+    const [photoForDB, setPhotoForDB] = useState(data.data.friendImage);
+    const [photo, setPhoto] = useState({uri : data.data.friendImage});
     const [form, setForm] = useForm({
-        firstName:'',
-        lastName:'',
-        age:''
+        firstName: data.data.firstName,
+        lastName: data.data.lastName,
+        age : data.data.age
     })
-    
-    useEffect(() => {
-        getData('user').then(res=>{
-            setMyId(res.id)
-        })
-    }, [])
+
+    const user = useSelector(state => state.user.id)
 
     const getImage = () => {
         ImagePicker.launchImageLibrary(
@@ -38,29 +34,34 @@ const EditProfile = ({navigation}) => {
           );
     }
 
-    const onButtonSave = () => {
-        const data = {
+    const onButtonUpdate = () => {
+        const dataForUpdate = {
             firstName : form.firstName,
             lastName : form.lastName,
             age : form.age,
             friendImage : photoForDB
         };
-        Fire.database().ref(`myFriends/${myId}`).push(data);
-        navigation.navigate('FriendList')
+        console.log('data', data.id)        
+        Fire.database()
+         .ref(`myFriends/${user}/${data.id}`)
+         .update(dataForUpdate)
+         .then(() => {
+             navigation.navigate('FriendList')
+         })
     }
 
     return (
         <>
-            <Header
-             title="Your Friends"
-             style={styles.header}
-             onPress={() => navigation.navigate('Dasboard')}/>
-            <Gap height={42} /> 
+            <Header 
+             title="Update"
+             styles={styles.header}
+             onPress={() => navigation.navigate('FriendList')}/>
+            <Gap height={42}/>
             <View style={styles.page}>
                 <TouchableOpacity onPress={getImage}>
-                    <Image source={photo} style={styles.avatar} />
+                    <Image source={photo} style={styles.avatar}/>
                 </TouchableOpacity>
-                <Gap height={42} />
+                <Gap height={42}/>
                 <Input 
                  value={form.firstName}
                  onChangeText={(v) => setForm('firstName', v)}
@@ -76,13 +77,13 @@ const EditProfile = ({navigation}) => {
                  onChangeText={(v) => setForm('age', v)}
                  placeholder="Age"/>
                 <Gap height={42} />
-                <Button title="Save" onPress={onButtonSave}/>
+                <Button title="Update" onPress={onButtonUpdate}/>
             </View>
         </>
     )
 }
 
-export default EditProfile
+export default UpdateFriends
 
 const styles = StyleSheet.create({
     page : {

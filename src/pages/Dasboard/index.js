@@ -1,12 +1,16 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { useSelector } from 'react-redux'
 import { BottomNav, Gap, MyProfile } from '../../components'
 
-const Profile = () => {
+
+const Dasboard = ({navigation}) => {
+    const user = useSelector(state => state.user)
+
     return (
         <View style={styles.wrapper}>
             <View>
-                <MyProfile/>
+                <MyProfile onPress={()=> navigation.navigate('Menu')} user={user} />
                 <Gap height={53}/>
                 <View style={styles.boxWrapper}>
                     <View style={styles.box("#6C63FF")}></View>
@@ -19,13 +23,16 @@ const Profile = () => {
                 </View>
             </View>
             <View style={styles.bottomNav}>
-                <BottomNav/>
+                <BottomNav 
+                 leftOnPress={()=> navigation.navigate('AddFriend')}
+                 rightOnPress={()=> navigation.navigate('FriendList')}
+                /> 
             </View>
         </View>
     )
 }
 
-export default Profile
+export default Dasboard
 
 const styles = StyleSheet.create({
     wrapper : {

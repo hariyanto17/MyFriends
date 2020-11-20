@@ -1,13 +1,13 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { ICArrowRight } from '../../../assets'
 
-const MenuLIst = ({title}) => {
+const MenuLIst = ({title, onPress}) => {
     return (
-        <View style={styles.wrapper} >
+        <TouchableOpacity onPress={onPress} style={styles.wrapper} >
             <Text style={styles.text}>{title}</Text>
             <ICArrowRight/>
-        </View>
+        </TouchableOpacity>
     )
 }
 

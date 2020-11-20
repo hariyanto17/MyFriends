@@ -6,6 +6,8 @@ const Input = ({value, onChangeText, placeholder}) => {
         <TextInput
             style={styles.input}
             placeholder={placeholder}
+            onChangeText={onChangeText}
+            value={value}
         />
     )
 }

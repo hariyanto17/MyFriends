@@ -1,16 +1,28 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { MyPhoto } from '../../atoms'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { getData, getTime } from '../../../utils';
+import { Default } from '../../../assets';
+import { useSelector } from 'react-redux';
 
-const MyProfile = () => {
+const MyProfile = ({onPress, user}) => {
+
+    const [Times, setTimes] = useState('')
+    console.log('user props', user)
+    
+    useEffect(() => {
+        const today = new Date();
+        const getTimes = getTime(today)
+        setTimes(getTimes)
+    }, [])
+
     return (
-        <View style={styles.wrapper}>
+        <TouchableOpacity style={styles.wrapper}onPress={onPress}>
             <View >
-                <Text style={styles.text}>Good Everning,</Text>
-                <Text style={styles.text}>Serlina Utami</Text>
+                <Text style={styles.text}>{Times},</Text>
+                <Text style={styles.text}>{user.username}</Text>
             </View>
-            <MyPhoto width={75} height={75} border={3}/>
-        </View>
+            <Image source={{ uri : user.photo}} style={styles.avatar} />
+        </TouchableOpacity>
     )
 }
 
@@ -28,5 +40,12 @@ const styles = StyleSheet.create({
         fontStyle: "normal",
         fontSize: 18,
         lineHeight : 22,
+    },
+    avatar : {
+        width : 75,
+        height : 75,
+        borderWidth : 3,
+        borderRadius: 75 / 2,
+        borderColor : "#6C63FF",
     }
 })

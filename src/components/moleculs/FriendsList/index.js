@@ -1,16 +1,22 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { MyPhoto } from '../../atoms'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native'
+import { Default } from '../../../assets'
 
-const FriendsList = () => {
+const FriendsList = ({list, onPress}) => {
+    const [photo, setPhoto] = useState(Default)
+    
+    useEffect(() => {
+        setPhoto({uri : list.data.friendImage})
+    }, [])
+
     return (
-        <View style={styles.wrapper} >
-            <MyPhoto width={60} height={60} border={3}/>
+        <TouchableOpacity style={styles.wrapper} onPress={onPress} >
+            <Image source={photo} style={styles.avatar} />
             <View style={styles.nameWrapper}>
-                <Text>Indrawan Lisanto</Text>
-                <Text>21 Yo</Text>
+            <Text>{list.data.firstName} {list.data.lastName}</Text>
+            <Text>{list.data.age}</Text>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -26,5 +32,12 @@ const styles = StyleSheet.create({
     nameWrapper : {
         marginLeft : 16,
         flex : 1,
+    },
+    avatar : {
+        width : 60,
+        height : 60,
+        borderWidth : 3,
+        borderRadius: 60 / 2,
+        borderColor : "#6C63FF",
     }
 })
