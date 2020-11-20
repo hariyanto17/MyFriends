@@ -26,7 +26,7 @@ const Menu = ({navigation}) => {
     }
 
     return (
-        <View>
+        <View style={styles.page}>
             <Header title="Menu" onPress={() => navigation.navigate('Dasboard')} />
             <Gap height={8}/>
             <MenuList title="Edit Profile"  onPress={() => navigation.navigate('EditProfile')}/>
@@ -38,4 +38,9 @@ const Menu = ({navigation}) => {
 
 export default Menu
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    page : {
+        backgroundColor : '#FFF',
+        flex : 1
+    }
+})

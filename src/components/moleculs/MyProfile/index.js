@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 const MyProfile = ({onPress, user}) => {
 
     const [Times, setTimes] = useState('')
-    console.log('user props', user)
     
     useEffect(() => {
         const today = new Date();

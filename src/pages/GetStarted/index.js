@@ -11,7 +11,6 @@ const GetStarted = ({navigation}) => {
     getData('user').then(res => {
       if (res) {
         dispatch({ type: 'SET_USER', value : res })
-        console.log('res', res)
         navigation.replace('Dasboard')
       }
     })
@@ -37,7 +36,8 @@ const styles = StyleSheet.create({
       display : "flex",
       flex : 1,
       alignItems:"center",
-      justifyContent: "center"
+      justifyContent: "center",
+      backgroundColor : '#FFF'
     },
     textWrapper : {
       width: 210,

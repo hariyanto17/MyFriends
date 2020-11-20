@@ -1,11 +1,17 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { BottomNav, Gap, MyProfile } from '../../components'
 
 
 const Dasboard = ({navigation}) => {
     const user = useSelector(state => state.user)
+    const dispatch = useDispatch()
+
+    const friendList = () => {
+        dispatch({ type: 'SET_LOADING', value : true })
+        navigation.navigate('FriendList')
+    }
 
     return (
         <View style={styles.wrapper}>
@@ -25,7 +31,7 @@ const Dasboard = ({navigation}) => {
             <View style={styles.bottomNav}>
                 <BottomNav 
                  leftOnPress={()=> navigation.navigate('AddFriend')}
-                 rightOnPress={()=> navigation.navigate('FriendList')}
+                 rightOnPress={friendList}
                 /> 
             </View>
         </View>
@@ -41,6 +47,7 @@ const styles = StyleSheet.create({
         paddingTop : 53,
         paddingBottom : 42,
         justifyContent : "space-between",
+        backgroundColor : '#FFF'
     },
     boxWrapper : {
         height : 125,

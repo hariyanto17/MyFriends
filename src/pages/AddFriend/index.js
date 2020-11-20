@@ -55,8 +55,8 @@ const EditProfile = ({navigation}) => {
              title="Your Friends"
              style={styles.header}
              onPress={() => navigation.navigate('Dasboard')}/>
-            <Gap height={42} /> 
             <View style={styles.page}>
+            <Gap height={42} /> 
                 <TouchableOpacity onPress={getImage}>
                     <Image source={photo} style={styles.avatar} />
                 </TouchableOpacity>
@@ -86,6 +86,7 @@ export default EditProfile
 
 const styles = StyleSheet.create({
     page : {
+        backgroundColor : '#FFF',
         display : "flex",
         flex : 1,
         alignItems :"center",

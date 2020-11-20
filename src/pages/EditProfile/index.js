@@ -61,7 +61,7 @@ const EditProfile = ({navigation}) => {
 
     return (
         <>
-            <Header title="Profile"/>
+            <Header title="Profile" onPress={() => navigation.navigate('Menu')}/>
             <View style={styles.page}>
                 <TouchableOpacity onPress={getImage}>
                     <Image source={profile} style={styles.avatar} />  
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
         flex : 1,
         justifyContent : "center",
         alignItems :"center",
+        backgroundColor : '#FFF'
     },
     text : {
         fontFamily : "Quicksand-Bold",

@@ -41,7 +41,6 @@ const UpdateFriends = ({navigation, route}) => {
             age : form.age,
             friendImage : photoForDB
         };
-        console.log('data', data.id)        
         Fire.database()
          .ref(`myFriends/${user}/${data.id}`)
          .update(dataForUpdate)
@@ -56,8 +55,8 @@ const UpdateFriends = ({navigation, route}) => {
              title="Update"
              styles={styles.header}
              onPress={() => navigation.navigate('FriendList')}/>
-            <Gap height={42}/>
             <View style={styles.page}>
+            <Gap height={42}/>
                 <TouchableOpacity onPress={getImage}>
                     <Image source={photo} style={styles.avatar}/>
                 </TouchableOpacity>
@@ -90,6 +89,7 @@ const styles = StyleSheet.create({
         display : "flex",
         flex : 1,
         alignItems :"center",
+        backgroundColor : '#FFF'
     },
     text : {
         fontFamily : "Quicksand-Bold",

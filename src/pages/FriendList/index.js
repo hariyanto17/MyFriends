@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { useDispatch } from 'react-redux'
 import { BottomNav, FriendsList, Header } from '../../components'
 import { Fire } from '../../config'
 import { getData } from '../../utils'
 
 const FriendList = ({navigation}) => {
 
+    const dispatch = useDispatch()
     const [friendList, setFriendList] = useState([]);
     useEffect(() => {
         getData('user').then(res=>{
@@ -13,6 +15,7 @@ const FriendList = ({navigation}) => {
                 .ref(`/myFriends/${res.id}`)
                 .on('value', snapshot => {
                     if (snapshot.val()) {
+                        dispatch({ type: 'SET_LOADING', value : false })
                         const data = [];
                         Object.keys(snapshot.val()).map(key =>{
                             data.push({
@@ -60,7 +63,8 @@ const styles = StyleSheet.create({
         display : "flex",
         marginBottom : 42,
         flex : 1,
-        justifyContent : "space-between"
+        justifyContent : "space-between",
+        backgroundColor : '#FFF'
 
     },
     bottomNav : {
